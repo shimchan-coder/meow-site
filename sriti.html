@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Valentine 💘</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(to bottom right, #ffb6c1, #ffe6f0);
+      overflow: hidden;
+    }
+
+    .card {
+      background: white;
+      width: 380px;
+      padding: 35px;
+      border-radius: 25px;
+      text-align: center;
+      box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.2);
+      position: relative;
+    }
+
+    h2 {
+      font-size: 22px;
+      margin: 15px 0;
+      font-weight: 600;
+    }
+
+    button {
+      padding: 14px 28px;
+      font-size: 18px;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      margin: 15px;
+      transition: 0.2s;
+    }
+
+    #yesBtn {
+      background: hotpink;
+      color: white;
+      font-weight: bold;
+      box-shadow: 0px 5px 10px rgba(255, 105, 180, 0.4);
+    }
+
+    #yesBtn:hover {
+      transform: scale(1.1);
+    }
+
+    #noBtn {
+      background: lightgray;
+      color: black;
+      position: absolute;
+    }
+
+    .small-text {
+      font-size: 14px;
+      color: gray;
+      margin-top: 5px;
+    }
+
+    #message {
+      font-size: 25px;
+      font-weight: bold;
+      margin-top: 25px;
+      color: #ff1493;
+    }
+
+    img {
+      width: 200px;
+      margin-top: 15px;
+      border-radius: 15px;
+    }
+
+    /* Floating hearts animation */
+    .heart {
+      position: absolute;
+      font-size: 20px;
+      animation: floatUp 4s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-700px);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+
+    <h2>Nissi 💖 will you be my Valentine?</h2>
+
+    <button id="yesBtn">Yes</button>
+    <button id="noBtn">No</button>
+
+    <div class="small-text">"No" seems a bit shy 😈</div>
+
+    <p id="message"></p>
+    <div id="gifArea"></div>
+  </div>
+
+  <!-- ✅ BACKGROUND MUSIC -->
+  <audio id="bgMusic" autoplay loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/10/30/audio_3d19f73b4f.mp3?filename=romantic-piano-ambient-126571.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- ✅ YES CLICK SOUND -->
+  <audio id="yesSound">
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_0d1e6a2c7e.mp3?filename=magic-chime-19483.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- ✅ NO BOING SOUND -->
+  <audio id="boingSound">
+    <source src="https://www.myinstants.com/media/sounds/boing.mp3" type="audio/mpeg">
+  </audio>
+
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const message = document.getElementById("message");
+    const gifArea = document.getElementById("gifArea");
+
+    // Sounds
+    const yesSound = document.getElementById("yesSound");
+    const boingSound = document.getElementById("boingSound");
+
+    // Background Music Volume
+    const bgMusic = document.getElementById("bgMusic");
+    bgMusic.volume = 0.3;
+
+    // NO button runs away + BOING 😂
+    noBtn.addEventListener("mouseover", function () {
+
+      boingSound.currentTime = 0;
+      boingSound.play();
+
+      const x = Math.random() * 250;
+      const y = Math.random() * 200;
+
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    });
+
+    // YES button click + Romantic Sound ✨💘
+    yesBtn.addEventListener("click", function () {
+
+      yesSound.currentTime = 0;
+      yesSound.play();
+
+      message.innerHTML = "YAYYYYY 🎉💘";
+
+      // ✅ CAT PNG APPEARS
+      gifArea.innerHTML = `
+        <img src="cat-mwah.png" alt="Cat Kiss PNG">
+      `;
+
+      noBtn.style.display = "none";
+      yesBtn.style.display = "none";
+
+      startHearts();
+    });
+
+    // Floating hearts generator 💖
+    function startHearts() {
+      setInterval(() => {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "💖";
+
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.top = "100%";
+        heart.style.fontSize = Math.random() * 25 + 15 + "px";
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+          heart.remove();
+        }, 4000);
+      }, 300);
+    }
+  </script>
+
+</body>
+</html>
